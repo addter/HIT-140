@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the data from the text file
+column_names = [
+    "Subject ID", "Jitter (%)", "Jitter (abs)", "Jitter (rap)", "Jitter (ppq5)",
+    "Jitter (ddp)", "Shimmer (%)", "Shimmer (abs)", "Shimmer (apq3)", "Shimmer (apq5)",
+    "Shimmer (apq11)", "Shimmer (dda)", "Harmonicity (NHR-HNR)", "Harmonicity (NHR)",
+    "Harmonicity (HNR)", "Pitch (median)", "Pitch (mean)", "Pitch (std)", "Pitch (min)",
+    "Pitch (max)", "Pulse (num)", "Pulse (periods)", "Pulse (mean period)",
+    "Pulse (period std)", "Voice (unvoiced fraction)", "Voice (breaks num)",
+    "Voice (breaks degree)", "UPDRS", "PD Indicator"
+]
+
+data = pd.read_csv("po1_data.txt", header=None, names=column_names)
+
+# List of variables to compare
+variables_to_compare = [
+    "Jitter (%)", "Shimmer (%)", "Harmonicity (NHR-HNR)", 
+    "Pitch (median)", "Pitch (mean)", "Pitch (std)"
+]
+
+# Create box plots to compare variables based on PD Indicator
+for variable in variables_to_compare:
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x="PD Indicator", y=variable, data=data)
+    plt.title(f"{variable} Comparison by PD Indicator")
+    plt.xlabel("PD Indicator")
+    plt.ylabel(variable)
+    plt.show()

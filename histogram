@@ -1,0 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data from the text file
+column_names = [
+    "Subject ID", "Jitter (%)", "Jitter (abs)", "Jitter (rap)", "Jitter (ppq5)",
+    "Jitter (ddp)", "Shimmer (%)", "Shimmer (abs)", "Shimmer (apq3)", "Shimmer (apq5)",
+    "Shimmer (apq11)", "Shimmer (dda)", "Harmonicity (NHR-HNR)", "Harmonicity (NHR)",
+    "Harmonicity (HNR)", "Pitch (median)", "Pitch (mean)", "Pitch (std)", "Pitch (min)",
+    "Pitch (max)", "Pulse (num)", "Pulse (periods)", "Pulse (mean period)",
+    "Pulse (period std)", "Voice (unvoiced fraction)", "Voice (breaks num)",
+    "Voice (breaks degree)", "UPDRS", "PD Indicator"
+]
+
+data = pd.read_csv("po1_data.txt", header=None, names=column_names)
+
+# Display the first few rows of the DataFrame
+print(data.head(10))
+
+# Display summary statistics of the dataset
+summary_stats = data.describe()
+print(summary_stats)
+
+# List of variables to compare with histograms
+variables_to_compare = [
+    "Jitter (%)", "Shimmer (%)", "Harmonicity (NHR-HNR)", 
+    "Pitch (median)", "Pitch (mean)", "Pitch (std)"
+]
+
+# Create histograms for selected variables
+for variable in variables_to_compare:
+    plt.figure(figsize=(10, 6))
+    plt.hist(data[variable], bins=20, color='blue', alpha=0.7)
+    plt.title(f"Histogram of {variable}")
+    plt.xlabel(variable)
+    plt.ylabel("Frequency")
+    plt.show()
+
+

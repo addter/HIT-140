@@ -1,0 +1,18 @@
+import pandas as pd
+
+# Load the data from the text file
+column_names = [
+    "Subject ID", "Jitter (%)", "Jitter (abs)", "Jitter (rap)", "Jitter (ppq5)",
+    "Jitter (ddp)", "Shimmer (%)", "Shimmer (abs)", "Shimmer (apq3)", "Shimmer (apq5)",
+    "Shimmer (apq11)", "Shimmer (dda)", "Harmonicity (NHR-HNR)", "Harmonicity (NHR)",
+    "Harmonicity (HNR)", "Pitch (median)", "Pitch (mean)", "Pitch (std)", "Pitch (min)",
+    "Pitch (max)", "Pulse (num)", "Pulse (periods)", "Pulse (mean period)",
+    "Pulse (period std)", "Voice (unvoiced fraction)", "Voice (breaks num)",
+    "Voice (breaks degree)", "UPDRS", "PD Indicator"
+]
+
+data = pd.read_csv("po1_data.txt", header=None, names=column_names)
+
+# Check for missing values
+missing_values = data.isnull().sum()
+print(missing_values)
